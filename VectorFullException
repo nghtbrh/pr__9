@@ -1,0 +1,5 @@
+public class VectorFullException extends Exception {
+    public VectorFullException(String message) {
+        super(message);
+    }
+}
