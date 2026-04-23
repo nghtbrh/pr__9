@@ -1,0 +1,9 @@
+import java.util.Comparator;
+
+public class VectorComparator implements Comparator<MyVector> {
+
+    @Override
+    public int compare(MyVector v1, MyVector v2) {
+        return v1.size() - v2.size();
+    }
+}
