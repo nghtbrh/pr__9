@@ -1,0 +1,131 @@
+public class MyVector implements Comparable<MyVector> {
+
+    private int[] data;
+    private int size;
+
+    public MyVector(int capacity) throws InvalidCapacityException {
+        if (capacity <= 0) {
+            throw new InvalidCapacityException("невірна місткість");
+        }
+        data = new int[capacity];
+        size = 0;
+    }
+
+    private void resize() {
+        int[] newData = new int[data.length * 2];
+
+        for (int i = 0; i < data.length; i++) {
+            newData[i] = data[i];
+        }
+
+        data = newData;
+    }
+
+    public void add(int value) throws VectorFullException {
+        if (size == data.length) {
+            throw new VectorFullException("вектор заповнений");
+        }
+
+        data[size] = value;
+        size++;
+    }
+
+    public void addFirst(int value) throws VectorFullException {
+        if (size == data.length) {
+            throw new VectorFullException("вектор заповнений");
+        }
+
+        for (int i = size; i > 0; i--) {
+            data[i] = data[i - 1];
+        }
+
+        data[0] = value;
+        size++;
+    }
+
+    public void addAt(int index, int value) throws VectorFullException {
+        if (index < 0 || index > size) {
+            throw new InvalidIndexException("невірний індекс");
+        }
+
+        if (size == data.length) {
+            throw new VectorFullException("вектор заповнений");
+        }
+
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
+        }
+
+        data[index] = value;
+        size++;
+    }
+
+    public int get(int index) {
+        if (size == 0) {
+            throw new EmptyVectorException("вектор порожній");
+        }
+
+        if (index < 0 || index >= size) {
+            throw new InvalidIndexException("невірний індекс");
+        }
+
+        return data[index];
+    }
+
+    public void remove(int index) {
+        if (size == 0) {
+            throw new EmptyVectorException("вектор порожній");
+        }
+
+        if (index < 0 || index >= size) {
+            throw new InvalidIndexException("невірний індекс");
+        }
+
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+
+        size--;
+    }
+
+    public void clear() {
+        size = 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public int capacity() {
+        return data.length;
+    }
+
+    @Override
+    public int compareTo(MyVector other) {
+        return this.size - other.size;
+    }
+
+    public void sort() {
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                if (data[j] > data[j + 1]) {
+                    int temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public void sort(java.util.Comparator<MyVector> comp) {
+        if (comp != null) {
+            comp.compare(this, this);
+        }
+    }
+    public void print() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(data[i] + " ");
+        }
+        System.out.println();
+    }
+}
