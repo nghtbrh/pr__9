@@ -1,0 +1,44 @@
+public class Main {
+    public static void main(String[] args) {
+
+        try {
+            MyVector vector = new MyVector(3);
+
+            vector.add(10);
+            vector.add(20);
+            vector.add(30);
+
+            vector.sort();
+            System.out.println("після sort():");
+            vector.print();
+
+            VectorComparator comp = new VectorComparator();
+            vector.sort(comp);
+
+            vector.add(40);
+
+        } catch (InvalidCapacityException e) {
+            System.out.println("помилка створення: " + e.getMessage());
+
+        } catch (VectorFullException e) {
+            System.out.println("помилка додавання: " + e.getMessage());
+        }
+        try {
+            MyVector vector2 = new MyVector(2);
+
+            vector2.add(1);
+
+            System.out.println(vector2.get(5));
+
+        } catch (Exception e) {
+            System.out.println("помилка доступу: " + e.getMessage());
+        }
+        try {
+            MyVector vector3 = new MyVector(2);
+
+            vector3.remove(0);
+        } catch (Exception e) {
+            System.out.println("помилка видалення: " + e.getMessage());
+        }
+    }
+}
